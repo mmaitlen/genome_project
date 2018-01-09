@@ -21,10 +21,12 @@ document.write("<br/>");
 
 
 var a = " "
-var cats = [ "persian", "siamese", "tabby", "ragdoll", "maine coon" ]
+var cats = [ "persian", "siamese", "tabby", "ragdoll", "mainecoon" ]
 var specimen = cats[chosennumber];
 for (i = 0; i < cats.length; i++) { 
-   document.write( cats[i] + a);}
+   document.write( cats[i] + a);
+}
+
 document.write("<br/>");
 var chosennumber = Math.floor(Math.random() * cats.length);
 
