@@ -1,0 +1,25 @@
+<html>
+<script>
+
+function doit() {
+  document.write("did it");
+}
+var a = " "
+var cats = [ "persian", "siamese", "tabby", "ragdoll", "maine coon" ]
+var cats2 = [   ];
+var specimen = cats[3];
+for (i = 0; i < cats.length; i++) { 
+   document.write( cats[i] + a);}
+document.write("<br/>");
+for (i = 0; i < cats.length; i++) { 
+  if (i != 3) {
+    cats2.push(cats[i])
+  }
+}
+document.write("<br/>");
+for (i = 0; i < cats2.length; i++) { 
+   document.write( cats2[i] + a);}
+document.write("<br/>");
+
+</script>
+</html>

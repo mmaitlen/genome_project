@@ -1,0 +1,39 @@
+<html>
+<script>
+
+function doit() {
+  document.write("did it");
+}
+
+function newlist( list, index) {
+var list2 = [   ] 
+for (i = 0; i < list.length; i++) { 
+  if (i != index) {
+    list2.push(list[i])
+  }
+
+}
+return list2;
+}
+document.write("<br/>");
+
+
+
+
+var a = " "
+var cats = [ "persian", "siamese", "tabby", "ragdoll", "maine coon" ]
+var specimen = cats[chosennumber];
+for (i = 0; i < cats.length; i++) { 
+   document.write( cats[i] + a);}
+document.write("<br/>");
+var chosennumber = Math.floor(Math.random() * cats.length);
+
+
+var cats2 = newlist(cats, chosennumber);
+
+for (i = 0; i < cats2.length; i++) { 
+   document.write( cats2[i] + a);}
+document.write("<br/>");
+document.write(" num " + chosennumber); 
+</script>
+</html>
