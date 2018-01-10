@@ -6,15 +6,31 @@ function doit() {
 }
 
 function newlist( list, index) {
-var list2 = [   ] 
-for (i = 0; i < list.length; i++) { 
-  if (i != index) {
-    list2.push(list[i])
-  }
+  var list2 = [   ] 
+  for (i = 0; i < list.length; i++) { 
+    if (i != index) {
+      list2.push(list[i])
+    }
 
+  }  
+  return list2;
 }
-return list2;
+
+
+function print_genes(specimen) {
+document.write("<br/>");
+
+if (specimen.gene1 == "D" && specimen.gene2 == "r") {
+  document.write(specimen.name + " is heterozygous");
+} else if  (specimen.gene1 == "r" && specimen.gene2 == "r") {
+  document.write(specimen.name + " is homozygous recessive");
 }
+
+else if  (specimen.gene1 == "D" && specimen.gene2 == "D") {
+  document.write(specimen.name + " is homozygous dominant");
+} 
+}
+
 document.write("<br/>");
 
 
@@ -37,5 +53,16 @@ for (i = 0; i < cats2.length; i++) {
    document.write( cats2[i] + a);}
 document.write("<br/>");
 document.write(" num " + chosennumber); 
+
+document.write("<br/>");
+
+var specimen1 = {name:"jackaloppe", gene1:"D", gene2:"D"}
+document.write("gene1 " + specimen1.gene1); 
+print_genes(specimen1);
+
+var specimen2 = {name:"jackaloppe", gene1:"r", gene2:"r"}
+print_genes(specimen2);
+
+   
 </script>
 </html>
