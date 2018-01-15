@@ -1,39 +1,53 @@
 <html>
 <script>
 
-function doit() {
-  document.write("did it");
+function printlist(list) {
+  for (i = 0; i < list.length; i++) { 
+    var s = list[i];
+    document.write(s.name + " gene1 " + s.gene1 + " gene2 " + s.gene2);
+    document.write("<br/>");
+  }
 }
 
 function newlist( list, index) {
-var list2 = [   ] 
-for (i = 0; i < list.length; i++) { 
-  if (i != index) {
-    list2.push(list[i])
+  var list2 = [   ] 
+  for (i = 0; i < list.length; i++) { 
+    if (i != index) {
+      list2.push(list[i])
+    }
+
   }
-
+  return list2;
 }
-return list2;
+
+function Specimen(g1, g2) {
+  this.name = "Jackalope";
+  this.gene1 = g1; 
+  this.gene2 = g2;
 }
-document.write("<br/>");
+
+function createSpecimen(list, g1, g2) {
+  var s = new Specimen(g1, g2);
+  list.push(s);
+}
+
+function createOffspring(parent1, parent2){
+  var offspring = [    ];
+  offspring.push(createSpecimen(parent1.gene1, parent2.gene1));
+  offspring.push(createSpecimen(parent1.gene1, parent2.gene2));
+  offspring.push(createSpecimen(parent1.gene2, parent2.gene1));
+  offspring.push(createSpecimen(parent1.gene2, parent2.gene2));
+  var randomval = Math.floor(Math.random * offspring.length);
+  child = offspring[randomval];
+  return 
+}
+document.write("Start da program!!<br/>");
 
 
 
+//var specimens = [];
+//for (i = 0; i < 101; i++){
+//createSpecimen(specimens, "D", "r");
+//}
+//printlist(specimens);
 
-var a = " "
-var cats = [ "persian", "siamese", "tabby", "ragdoll", "maine coon" ]
-var specimen = cats[chosennumber];
-for (i = 0; i < cats.length; i++) { 
-   document.write( cats[i] + a);}
-document.write("<br/>");
-var chosennumber = Math.floor(Math.random() * cats.length);
-
-
-var cats2 = newlist(cats, chosennumber);
-
-for (i = 0; i < cats2.length; i++) { 
-   document.write( cats2[i] + a);}
-document.write("<br/>");
-document.write(" num " + chosennumber); 
-</script>
-</html>
