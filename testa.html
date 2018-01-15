@@ -9,6 +9,11 @@ function printlist(list) {
   }
 }
 
+function printSpecimen(s) {
+    document.write(s.name + " gene1 " + s.gene1 + " gene2 " + s.gene2);
+  document.write("<br/>");
+}
+
 function newlist( list, index) {
   var list2 = [   ] 
   for (i = 0; i < list.length; i++) { 
@@ -27,27 +32,39 @@ function Specimen(g1, g2) {
 }
 
 function createSpecimen(list, g1, g2) {
-  var s = new Specimen(g1, g2);
-  list.push(s);
+  return new Specimen(g1, g2);
+}
+
+function pl(list) {
+  document.write(" <br/>");
+  document.write(list[0].name + " gene1 " + list[0].gene1 + " gene2 " + list[0].gene2 + "<br/>");
+  document.write(list[1].name + " gene1 " + list[1].gene1 + " gene2 " + list[1].gene2 + "<br/>");
+  document.write(list[2].name + " gene1 " + list[2].gene1 + " gene2 " + list[2].gene2 + "<br/>");
+  document.write(list[3].name + " gene1 " + list[3].gene1 + " gene2 " + list[3].gene2 + "<br/>");
+  document.write(" <br/>");
 }
 
 function createOffspring(parent1, parent2){
   var offspring = [    ];
-  offspring.push(createSpecimen(parent1.gene1, parent2.gene1));
-  offspring.push(createSpecimen(parent1.gene1, parent2.gene2));
-  offspring.push(createSpecimen(parent1.gene2, parent2.gene1));
-  offspring.push(createSpecimen(parent1.gene2, parent2.gene2));
-  var randomval = Math.floor(Math.random * offspring.length);
+  offspring.push(new Specimen(parent1.gene1, parent2.gene1));
+  offspring.push(new Specimen(parent1.gene1, parent2.gene2));
+  offspring.push(new Specimen(parent1.gene2, parent2.gene1));
+  offspring.push(new Specimen(parent1.gene2, parent2.gene2));
+  var randomval = Math.floor(Math.random() * offspring.length);
+  document.write(" random " + randomval + " -- ");
   child = offspring[randomval];
-  return 
+  printSpecimen(child);
+  return child; 
 }
 document.write("Start da program!!<br/>");
 
+s1 = new Specimen("D", "r");
+s2 = new Specimen("D", "r");
+
+for (i = 0; i < 200; i++) {
+  var s = createOffspring(s1, s2);
+}
 
 
-//var specimens = [];
-//for (i = 0; i < 101; i++){
-//createSpecimen(specimens, "D", "r");
-//}
-//printlist(specimens);
-
+</script>
+</html>
