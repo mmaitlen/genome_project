@@ -1,0 +1,148 @@
+
+<!-- saved from url=(0065)file:///Users/michaelmaitlen/zztmp/kyle/genome_project/testa.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><script>
+
+function genname(num){
+  document.write( "<br/><br/> ----- generation " + num + " -----<br/>");
+  num++;
+}
+
+function printlist(list) {
+  for (i = 0; i < list.length; i++) { 
+    var s = list[i];
+    document.write(s.name + " gene1 " + s.gene1 + " gene2 " + s.gene2);
+    document.write("<br/>");
+  }
+}
+
+function printSpecimen(s) {
+  document.write(s.name + " gene1 " + s.gene1 + " gene2 " + s.gene2);
+  document.write("<br/>");
+}
+
+function newlist( list, index) {
+  var list2 = [   ] 
+  for (i = 0; i < list.length; i++) { 
+    if (i != index) {
+      list2.push(list[i])
+    }
+
+  }
+  return list2;
+}
+
+function Specimen(g1, g2) {
+  this.name = "Jackalope";
+  this.gene1 = g1; 
+  this.gene2 = g2;
+}
+
+function createSpecimen(list, g1, g2) {
+  return new Specimen(g1, g2);
+}
+
+function pl(list) {
+  document.write(" <br/>");
+  document.write(list[0].name + " gene1 " + list[0].gene1 + " gene2 " + list[0].gene2 + "<br/>");
+  document.write(list[1].name + " gene1 " + list[1].gene1 + " gene2 " + list[1].gene2 + "<br/>");
+  document.write(list[2].name + " gene1 " + list[2].gene1 + " gene2 " + list[2].gene2 + "<br/>");
+  document.write(list[3].name + " gene1 " + list[3].gene1 + " gene2 " + list[3].gene2 + "<br/>");
+  document.write(" <br/>");
+}
+
+function createOffspring(parent1, parent2){
+  var offspring = [];
+  offspring.push(new Specimen(parent1.gene1, parent2.gene1));
+  offspring.push(new Specimen(parent1.gene1, parent2.gene2));
+  offspring.push(new Specimen(parent1.gene2, parent2.gene1));
+  offspring.push(new Specimen(parent1.gene2, parent2.gene2));
+  var randomval = Math.floor(Math.random() * offspring.length);
+  child = offspring[randomval];
+  //document.write(" random " + randomval + " -- ");
+  //printSpecimen(child);
+  return child; 
+}
+
+function executeGeneration(list) {
+  //document.write("<br/>parents<br/>");
+  //for (idx = 0; idx < list.length; idx++) {
+  //  printSpecimen(list[idx]);
+  //}
+  var childlist = [];
+  var count = 0;
+  var s1;
+  var s2;
+  var c1;
+  var c2;
+    var list1 = list;
+    var list2 = [];
+    var list3 = [];
+  for (x = 0; x < 100; x++) {
+    if (count == 0) {
+      var randomval = Math.floor(Math.random() * list1.length);
+      s1 = list1[randomval];
+      list2 = newlist(list1, randomval);
+      count++;
+    } else {
+      var randomval = Math.floor(Math.random() * list2.length);
+      s2 = list2[randomval];
+      list3 = newlist(list2, randomval);
+    
+      c1 = createOffspring(s1, s2);
+      c2 = createOffspring(s1, s2);
+    
+      childlist.push(c1);
+      childlist.push(c2);
+
+      count = 0;
+      list1 = list3
+    }
+  }
+
+  document.write("<br/>children<br/>");
+
+  var list1 = [];
+  var list2 = [];
+  var list3 = [];
+  var child;
+  for (c = 0; c < childlist.length; c++) {
+    child = childlist[c];
+    //printSpecimen(child);
+    if ((child.gene1 == "D" && child.gene2 == "r") || (child.gene1 == "r" && child.gene2 == "D")) {
+      list1.push(child);
+    } else if (child.gene1 == "D" && child.gene2 == "D") {
+      list3.push(child);
+    } else {
+      list2.push(child);
+    }
+  }
+  document.write(list1.length + " jackalopes are heterozygous <br/>");
+  document.write(list2.length + " jackalopes are homozygous recessive <br/>");
+  document.write(list3.length + " jackalopes are homozygous dominant <br/>");
+  document.write( "OR <br/>" );
+  document.write( list1.length + list3.length + " jackalopes have deer horns <br/>");
+  document.write( list2.length + " jackalopes have antelope horns");
+
+  return childlist;
+}
+
+
+// main body
+
+
+var alist = [];
+
+for(i=0; i < 100; i++) {
+ alist.push( new Specimen("D", "r"));
+}
+
+var parentlist = alist;
+for(gen = 1; gen < 26; gen++ ){
+  genname(gen);
+  parentlist = executeGeneration(parentlist);
+}
+
+
+</script></head><body><br><br> ----- generation 1 -----<br><br>children<br>48 jackalopes are heterozygous <br>31 jackalopes are homozygous recessive <br>21 jackalopes are homozygous dominant <br>OR <br>69 jackalopes have deer horns <br>31 jackalopes have antelope horns<br><br> ----- generation 2 -----<br><br>children<br>41 jackalopes are heterozygous <br>35 jackalopes are homozygous recessive <br>24 jackalopes are homozygous dominant <br>OR <br>65 jackalopes have deer horns <br>35 jackalopes have antelope horns<br><br> ----- generation 3 -----<br><br>children<br>37 jackalopes are heterozygous <br>37 jackalopes are homozygous recessive <br>26 jackalopes are homozygous dominant <br>OR <br>63 jackalopes have deer horns <br>37 jackalopes have antelope horns<br><br> ----- generation 4 -----<br><br>children<br>57 jackalopes are heterozygous <br>25 jackalopes are homozygous recessive <br>18 jackalopes are homozygous dominant <br>OR <br>75 jackalopes have deer horns <br>25 jackalopes have antelope horns<br><br> ----- generation 5 -----<br><br>children<br>46 jackalopes are heterozygous <br>32 jackalopes are homozygous recessive <br>22 jackalopes are homozygous dominant <br>OR <br>68 jackalopes have deer horns <br>32 jackalopes have antelope horns<br><br> ----- generation 6 -----<br><br>children<br>52 jackalopes are heterozygous <br>33 jackalopes are homozygous recessive <br>15 jackalopes are homozygous dominant <br>OR <br>67 jackalopes have deer horns <br>33 jackalopes have antelope horns<br><br> ----- generation 7 -----<br><br>children<br>51 jackalopes are heterozygous <br>32 jackalopes are homozygous recessive <br>17 jackalopes are homozygous dominant <br>OR <br>68 jackalopes have deer horns <br>32 jackalopes have antelope horns<br><br> ----- generation 8 -----<br><br>children<br>41 jackalopes are heterozygous <br>39 jackalopes are homozygous recessive <br>20 jackalopes are homozygous dominant <br>OR <br>61 jackalopes have deer horns <br>39 jackalopes have antelope horns<br><br> ----- generation 9 -----<br><br>children<br>51 jackalopes are heterozygous <br>33 jackalopes are homozygous recessive <br>16 jackalopes are homozygous dominant <br>OR <br>67 jackalopes have deer horns <br>33 jackalopes have antelope horns<br><br> ----- generation 10 -----<br><br>children<br>51 jackalopes are heterozygous <br>33 jackalopes are homozygous recessive <br>16 jackalopes are homozygous dominant <br>OR <br>67 jackalopes have deer horns <br>33 jackalopes have antelope horns<br><br> ----- generation 11 -----<br><br>children<br>45 jackalopes are heterozygous <br>37 jackalopes are homozygous recessive <br>18 jackalopes are homozygous dominant <br>OR <br>63 jackalopes have deer horns <br>37 jackalopes have antelope horns<br><br> ----- generation 12 -----<br><br>children<br>46 jackalopes are heterozygous <br>37 jackalopes are homozygous recessive <br>17 jackalopes are homozygous dominant <br>OR <br>63 jackalopes have deer horns <br>37 jackalopes have antelope horns<br><br> ----- generation 13 -----<br><br>children<br>54 jackalopes are heterozygous <br>30 jackalopes are homozygous recessive <br>16 jackalopes are homozygous dominant <br>OR <br>70 jackalopes have deer horns <br>30 jackalopes have antelope horns<br><br> ----- generation 14 -----<br><br>children<br>48 jackalopes are heterozygous <br>39 jackalopes are homozygous recessive <br>13 jackalopes are homozygous dominant <br>OR <br>61 jackalopes have deer horns <br>39 jackalopes have antelope horns<br><br> ----- generation 15 -----<br><br>children<br>43 jackalopes are heterozygous <br>43 jackalopes are homozygous recessive <br>14 jackalopes are homozygous dominant <br>OR <br>57 jackalopes have deer horns <br>43 jackalopes have antelope horns<br><br> ----- generation 16 -----<br><br>children<br>53 jackalopes are heterozygous <br>39 jackalopes are homozygous recessive <br>8 jackalopes are homozygous dominant <br>OR <br>61 jackalopes have deer horns <br>39 jackalopes have antelope horns<br><br> ----- generation 17 -----<br><br>children<br>45 jackalopes are heterozygous <br>45 jackalopes are homozygous recessive <br>10 jackalopes are homozygous dominant <br>OR <br>55 jackalopes have deer horns <br>45 jackalopes have antelope horns<br><br> ----- generation 18 -----<br><br>children<br>39 jackalopes are heterozygous <br>50 jackalopes are homozygous recessive <br>11 jackalopes are homozygous dominant <br>OR <br>50 jackalopes have deer horns <br>50 jackalopes have antelope horns<br><br> ----- generation 19 -----<br><br>children<br>38 jackalopes are heterozygous <br>52 jackalopes are homozygous recessive <br>10 jackalopes are homozygous dominant <br>OR <br>48 jackalopes have deer horns <br>52 jackalopes have antelope horns<br><br> ----- generation 20 -----<br><br>children<br>36 jackalopes are heterozygous <br>55 jackalopes are homozygous recessive <br>9 jackalopes are homozygous dominant <br>OR <br>45 jackalopes have deer horns <br>55 jackalopes have antelope horns<br><br> ----- generation 21 -----<br><br>children<br>34 jackalopes are heterozygous <br>54 jackalopes are homozygous recessive <br>12 jackalopes are homozygous dominant <br>OR <br>46 jackalopes have deer horns <br>54 jackalopes have antelope horns<br><br> ----- generation 22 -----<br><br>children<br>47 jackalopes are heterozygous <br>48 jackalopes are homozygous recessive <br>5 jackalopes are homozygous dominant <br>OR <br>52 jackalopes have deer horns <br>48 jackalopes have antelope horns<br><br> ----- generation 23 -----<br><br>children<br>44 jackalopes are heterozygous <br>53 jackalopes are homozygous recessive <br>3 jackalopes are homozygous dominant <br>OR <br>47 jackalopes have deer horns <br>53 jackalopes have antelope horns<br><br> ----- generation 24 -----<br><br>children<br>36 jackalopes are heterozygous <br>56 jackalopes are homozygous recessive <br>8 jackalopes are homozygous dominant <br>OR <br>44 jackalopes have deer horns <br>56 jackalopes have antelope horns<br><br> ----- generation 25 -----<br><br>children<br>37 jackalopes are heterozygous <br>56 jackalopes are homozygous recessive <br>7 jackalopes are homozygous dominant <br>OR <br>44 jackalopes have deer horns <br>56 jackalopes have antelope horns
+
+</body></html>
