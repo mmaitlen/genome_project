@@ -1,6 +1,11 @@
 <html>
 <script>
 
+function genname(num){
+document.write( "<br/><br/> ----- generation " + num + " -----<br/>");
+num++;
+}
+
 function printlist(list) {
   for (i = 0; i < list.length; i++) { 
     var s = list[i];
@@ -51,19 +56,15 @@ function createOffspring(parent1, parent2){
   offspring.push(new Specimen(parent1.gene2, parent2.gene1));
   offspring.push(new Specimen(parent1.gene2, parent2.gene2));
   var randomval = Math.floor(Math.random() * offspring.length);
-  document.write(" random " + randomval + " -- ");
+  //document.write(" random " + randomval + " -- ");
   child = offspring[randomval];
-  printSpecimen(child);
+  //printSpecimen(child);
   return child; 
 }
-document.write("Start da program!!<br/>");
 
-var parentlist = [];
+function executeGeneration(list) {
 
-for(i=0; i < 100; i++) {
- parentlist.push( new Specimen("D", "r"));
-}
-document.write(" list size is" + parentlist.length); 
+//document.write(" list size is" + parentlist.length); 
 
 var childlist = [];
 var count = 0;
@@ -73,34 +74,34 @@ var c1;
 var c2;
 for (x=0; x <100; x++) {
   if (count == 0) {
-    var randomval = Math.floor(Math.random() * parentlist.length);
-    s1 = parentlist[randomval];
-    var parentlist = newlist(parentlist, randomval);
+    var randomval = Math.floor(Math.random() * list.length);
+    s1 = list[randomval];
+    var list = newlist(list, randomval);
     count++;
   } else {
-    var randomval = Math.floor(Math.random() * parentlist.length);
-    s2 = parentlist[randomval];
-    var parentlist = newlist(parentlist, randomval);
+    var randomval = Math.floor(Math.random() * list.length);
+    s2 = list[randomval];
+    var list = newlist(list, randomval);
     
     c1 = createOffspring(s1, s2);
     c2 = createOffspring(s1, s2);
     
-    childlist.push(c1);
-    childlist.push(c2);
+    list.push(c1);
+    list.push(c2);
 
     count = 0;
   }
-  document.write(" list size is " + parentlist.length + "<br/>"); 
+ // document.write(" list size is " + parentlist.length + "<br/>"); 
 }
 
-document.write("<br/>child list size " + childlist.length);
+//document.write("<br/>child list size " + childlist.length);
 
 var list1 = [];
 var list2 = [];
 var list3 = [];
 var child;
 for (c=0; c < 100; c++) {
-  child = childlist[c];
+  child = list[c];
   if ((child.gene1 == "D" && child.gene2 == "r") || (child.gene1 == "r" && child.gene2 == "D")) {
     list1.push(child);
   } else if (child.gene1 == "D" && child.gene2 == "D") {
@@ -109,13 +110,33 @@ for (c=0; c < 100; c++) {
     list2.push(child);
   }
 }
-document.write( "<br/> OR <br/>" );
+document.write("<br/>" );
 document.write(list1.length + " jackalopes are heterozygous <br/>");
 document.write(list2.length + " jackalopes are homozygous recessive <br/>");
 document.write(list3.length + " jackalopes are homozygous dominant <br/>");
 document.write( "OR <br/>" );
 document.write( list1.length + list3.length + " jackalopes have deer horns <br/>");
 document.write( list2.length + " jackalopes have antelope horns");
+
+  return list;
+}
+
+
+// main body
+
+
+var alist = [];
+
+for(i=0; i < 100; i++) {
+ alist.push( new Specimen("D", "r"));
+}
+
+var parentlist = alist;
+for(gen = 1; gen < 6; gen++ ){
+  genname(gen);
+  parentlist = executeGeneration(parentlist);
+}
+
 
 </script>
 </html>
