@@ -2,8 +2,8 @@
 <script>
 
 function genname(num){
-document.write( "<br/><br/> ----- generation " + num + " -----<br/>");
-num++;
+  document.write( "<br/><br/> ----- generation " + num + " -----<br/>");
+  num++;
 }
 
 function printlist(list) {
@@ -15,7 +15,7 @@ function printlist(list) {
 }
 
 function printSpecimen(s) {
-    document.write(s.name + " gene1 " + s.gene1 + " gene2 " + s.gene2);
+  document.write(s.name + " gene1 " + s.gene1 + " gene2 " + s.gene2);
   document.write("<br/>");
 }
 
@@ -50,75 +50,79 @@ function pl(list) {
 }
 
 function createOffspring(parent1, parent2){
-  var offspring = [    ];
+  var offspring = [];
   offspring.push(new Specimen(parent1.gene1, parent2.gene1));
   offspring.push(new Specimen(parent1.gene1, parent2.gene2));
   offspring.push(new Specimen(parent1.gene2, parent2.gene1));
   offspring.push(new Specimen(parent1.gene2, parent2.gene2));
   var randomval = Math.floor(Math.random() * offspring.length);
-  //document.write(" random " + randomval + " -- ");
   child = offspring[randomval];
+  //document.write(" random " + randomval + " -- ");
   //printSpecimen(child);
   return child; 
 }
 
 function executeGeneration(list) {
-
-//document.write(" list size is" + parentlist.length); 
-
-var childlist = [];
-var count = 0;
-var s1;
-var s2;
-var c1;
-var c2;
-for (x=0; x <100; x++) {
-  if (count == 0) {
-    var randomval = Math.floor(Math.random() * list.length);
-    s1 = list[randomval];
-    var list = newlist(list, randomval);
-    count++;
-  } else {
-    var randomval = Math.floor(Math.random() * list.length);
-    s2 = list[randomval];
-    var list = newlist(list, randomval);
+  //document.write("<br/>parents<br/>");
+  //for (idx = 0; idx < list.length; idx++) {
+  //  printSpecimen(list[idx]);
+  //}
+  var childlist = [];
+  var count = 0;
+  var s1;
+  var s2;
+  var c1;
+  var c2;
+    var list1 = list;
+    var list2 = [];
+    var list3 = [];
+  for (x = 0; x < 100; x++) {
+    if (count == 0) {
+      var randomval = Math.floor(Math.random() * list1.length);
+      s1 = list1[randomval];
+      list2 = newlist(list1, randomval);
+      count++;
+    } else {
+      var randomval = Math.floor(Math.random() * list2.length);
+      s2 = list2[randomval];
+      list3 = newlist(list2, randomval);
     
-    c1 = createOffspring(s1, s2);
-    c2 = createOffspring(s1, s2);
+      c1 = createOffspring(s1, s2);
+      c2 = createOffspring(s1, s2);
     
-    list.push(c1);
-    list.push(c2);
+      childlist.push(c1);
+      childlist.push(c2);
 
-    count = 0;
+      count = 0;
+      list1 = list3
+    }
   }
- // document.write(" list size is " + parentlist.length + "<br/>"); 
-}
 
-//document.write("<br/>child list size " + childlist.length);
+  document.write("<br/>children<br/>");
 
-var list1 = [];
-var list2 = [];
-var list3 = [];
-var child;
-for (c=0; c < 100; c++) {
-  child = list[c];
-  if ((child.gene1 == "D" && child.gene2 == "r") || (child.gene1 == "r" && child.gene2 == "D")) {
-    list1.push(child);
-  } else if (child.gene1 == "D" && child.gene2 == "D") {
-    list3.push(child);
-  } else {
-    list2.push(child);
+  var list1 = [];
+  var list2 = [];
+  var list3 = [];
+  var child;
+  for (c = 0; c < childlist.length; c++) {
+    child = childlist[c];
+    //printSpecimen(child);
+    if ((child.gene1 == "D" && child.gene2 == "r") || (child.gene1 == "r" && child.gene2 == "D")) {
+      list1.push(child);
+    } else if (child.gene1 == "D" && child.gene2 == "D") {
+      list3.push(child);
+    } else {
+      list2.push(child);
+    }
   }
-}
-document.write("<br/>" );
-document.write(list1.length + " jackalopes are heterozygous <br/>");
-document.write(list2.length + " jackalopes are homozygous recessive <br/>");
-document.write(list3.length + " jackalopes are homozygous dominant <br/>");
-document.write( "OR <br/>" );
-document.write( list1.length + list3.length + " jackalopes have deer horns <br/>");
-document.write( list2.length + " jackalopes have antelope horns");
+  document.write(list1.length + " jackalopes are heterozygous <br/>");
+  document.write(list2.length + " jackalopes are homozygous recessive <br/>");
+  document.write(list3.length + " jackalopes are homozygous dominant <br/>");
+  document.write( "OR <br/>" );
+  document.write( list1.length + list3.length + " jackalopes have deer horns <br/>");
+  document.write( list2.length + " jackalopes have antelope horns");
 
-  return list;
+  return childlist;
 }
 
 
@@ -132,7 +136,7 @@ for(i=0; i < 100; i++) {
 }
 
 var parentlist = alist;
-for(gen = 1; gen < 6; gen++ ){
+for(gen = 1; gen < 26; gen++ ){
   genname(gen);
   parentlist = executeGeneration(parentlist);
 }
